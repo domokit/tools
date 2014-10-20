@@ -10,7 +10,7 @@ def system(command):
 home = os.environ["HOME"]
 dest = os.path.join(home, "jobs", "mojo_continuous_builder")
 system(["mkdir", "-p", dest])
-shutil.copy("tools/jenkins/config.xml", dest)
+shutil.copy("/var/mojo/tools/jenkins/config.xml", dest)
 
 plugin_dir = os.path.join(home, "plugins")
 system(["mkdir", "-p", plugin_dir])

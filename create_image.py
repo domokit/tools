@@ -11,6 +11,25 @@ zone = "us-central1-f"
 def gcompute(command):
     return subprocess.check_call(["gcloud", "compute"] + command)
 
+def delete_instance():
+    try:
+        gcompute(["instances", "delete",
+                  instance_name,
+                  "--zone", zone,
+                  "--quiet"])
+    except:
+        print "Failed to delete instance; might already have been deleted."
+
+    try:
+        gcompute(["disks", "delete",
+                  instance_name,
+                  "--zone", zone,
+                  "--quiet"])
+    except:
+        print "Failed to delete disk; might already have been deleted."
+
+delete_instance()
+
 gcompute(["instances", "create",
           instance_name,
           "--address", address,
@@ -45,7 +64,4 @@ try:
               "--zone", zone])
 
 except:
-    gcompute(["instances", "delete",
-              instance_name,
-              "--zone", zone,
-              "--quiet"])
+    delete_instance()
