@@ -11,16 +11,36 @@ zone = "us-central1-f"
 def gcompute(command):
     return subprocess.check_call(["gcloud", "compute"] + command)
 
-gcompute(["instances", "create",
-          instance_name,
-          "--address", address,
-          "--boot-disk-type", "pd-standard",
-          "--disk", "name=mojo-builder-ssd",
-          "--image", "debian-7-backports",
-          "--machine-type", machine_type,
-          "--project", "google.com:webkit",
-          "--zone", zone,
-          "--quiet"])
+def create_instance():
+    gcompute(["instances", "create",
+              instance_name,
+              "--address", address,
+              "--boot-disk-type", "pd-standard",
+              "--disk", "name=mojo-builder-ssd",
+              "--image", "debian-7-backports",
+              "--machine-type", machine_type,
+              "--project", "google.com:webkit",
+              "--zone", zone,
+              "--quiet"])
+
+def delete_instance():
+    gcompute(["instances", "delete",
+              instance_name,
+              "--zone", zone,
+              "--quiet"])
+    try:
+        gcompute(["disks", "delete",
+                  instance_name,
+                  "--zone", zone,
+                  "--quiet"])
+    except Exception, e:
+        print "Failed to delete disk; might already have been deleted."
+
+try:
+  create_instance()
+except:
+  delete_instance()
+  create_instance()
 
 try:
     # Give the instance a bit of time to spin up or the ssh will fail.
@@ -45,7 +65,4 @@ try:
               "--zone", zone])
 
 except:
-    gcompute(["instances", "delete",
-              instance_name,
-              "--zone", zone,
-              "--quiet"])
+    delete_instance()
