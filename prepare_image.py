@@ -20,7 +20,7 @@ subprocess.check_call("curl -sSL https://get.docker.com/ | sh", shell=True)
 
 root(["apt-get", "update"])
 root(["apt-get", "install", "-y", "git", "jenkins"])
-# TODO: add user 'jenkins' to the sudo without password list
+root(["passwd", "-d", "jenkins"])
 root(["usermod", "-G", "sudo", "jenkins"])
 
 system(["git", "clone", "https://github.com/domokit/tools.git"])
