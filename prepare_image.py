@@ -23,8 +23,10 @@ root(["usermod", "-G", "sudo", "jenkins"])
 subprocess.check_call("echo \"%sudo ALL=NOPASSWD: ALL\" | " +
                       "sudo tee -a /etc/sudoers", shell=True)
 
-system(["git", "clone", "https://github.com/domokit/tools.git"])
-
-root(["sudo", "-u", "jenkins", "./tools/configure_jenkins.py"])
+root(["mkdir", "/var/mojo"])
+root(["chmod", "777", "/var/mojo"])
+system(["git", "clone", "https://github.com/domokit/tools.git", "/var/mojo/tools"])
+root(["docker", "image", "build", "-no-cache=true", "/var/mojo/tools/docker", "-t", "mojo-image"])
+root(["sudo", "-u", "jenkins", "/var/mojo/tools/configure_jenkins.py"])
 
 root(["/etc/init.d/jenkins", "restart"])

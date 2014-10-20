@@ -33,7 +33,7 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>/home/jamesr/tools/start.py</command>
+      <command>/var/mojo/tools/start.py</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>
