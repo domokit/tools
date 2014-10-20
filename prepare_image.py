@@ -20,8 +20,9 @@ subprocess.check_call("curl -sSL https://get.docker.com/ | sh", shell=True)
 
 root(["apt-get", "update"])
 root(["apt-get", "install", "-y", "git", "jenkins"])
-root(["passwd", "-d", "jenkins"])
 root(["usermod", "-G", "sudo", "jenkins"])
+subprocess.check_call("echo \"%sudo ALL=NOPASSWD: ALL\" | " +
+                      "sudo tee -a /etc/sudoers", shell=True)
 
 system(["git", "clone", "https://github.com/domokit/tools.git"])
 
