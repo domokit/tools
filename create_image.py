@@ -23,11 +23,11 @@ gcompute(["instances", "create",
 
 try:
     # Give the instance a bit of time to spin up or the ssh will fail.
-    while gcompute(["ssh",
-                    instance_name,
-                    "--command", "true",
-                    "--quiet",
-                    "--zone", zone]) != 0:
+    while subprocess.call(["gcloud", "compute", "ssh",
+                           instance_name,
+                           "--command", "true",
+                           "--quiet",
+                           "--zone", zone]) != 0:
         print "waiting for instance to allow ssh..."
         time.sleep(5)
 
