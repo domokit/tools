@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import subprocess
+import time
 
 instance_name = "mojo-builder-1"
 address = "130.211.144.95"
@@ -21,6 +22,16 @@ gcompute(["instances", "create",
           "--quiet"])
 
 try:
+    # Give the instance a bit of time to spin up or the ssh will fail.
+    while gcompute(["ssh",
+                    instance_name,
+                    "--command", "true",
+                    "--quiet",
+                    "--zone", zone]) != 0:
+        print "waiting for instance to allow ssh..."
+        time.sleep(5)
+
+
     gcompute(["copy-files",
               "prepare_image.py",
               instance_name + ":~/prepare_image.py",
