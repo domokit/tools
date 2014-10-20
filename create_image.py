@@ -17,6 +17,7 @@ gcompute(["instances", "create",
           "--boot-disk-type", "pd-standard",
           "--disk", "name=mojo-builder-ssd",
           "--image", "debian-7-backports",
+          "--machine-type", machine_type,
           "--project", "google.com:webkit",
           "--zone", zone,
           "--quiet"])

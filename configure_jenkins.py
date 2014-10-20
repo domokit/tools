@@ -24,6 +24,6 @@ plugins = [
     "scm-api",
     "ssh-credentials"]
 
+os.chdir(plugin_dir)
 for p in plugins:
-    system(["curl", "http://updates.jenkins-ci.org/latest/" + p + ".hpi", "-o",
-            os.path.join(plugin_dir, p + ".hpi")])
+    system(["wget", "-q", "http://updates.jenkins-ci.org/latest/" + p + ".hpi"])
