@@ -4,6 +4,7 @@ import subprocess
 import time
 
 instance_name = "mojo-builder-1"
+disk_name = "mojo-builder-ssd-1"
 address = "130.211.144.95"
 machine_type = "n1-highcpu-16"
 zone = "us-central1-f"
@@ -34,7 +35,7 @@ gcompute(["instances", "create",
           instance_name,
           "--address", address,
           "--boot-disk-type", "pd-standard",
-          "--disk", "name=mojo-builder-ssd",
+          "--disk", "name=" + disk_name,
           "--image", "debian-7-backports",
           "--machine-type", machine_type,
           "--project", "google.com:webkit",
