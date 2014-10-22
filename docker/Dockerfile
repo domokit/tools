@@ -16,8 +16,10 @@ RUN apt-get update && apt-get install -y \
 	libudev-dev \
 	libxss-dev \
 	libxtst-dev \
+	openbox \
 	python-dev \
 	realpath \
+	xvfb \
   && rm -rf /var/lib/apt/lists/*
 
 RUN apt-get clean
