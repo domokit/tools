@@ -10,7 +10,8 @@ def root(command):
     return system(["sudo", "-n"] + command)
 
 root(["mkdir", "/ssd"])
-root(["mount", "-t", "ext4", "/dev/sdb", "/ssd"])
+root(["/usr/share/google/safe_format_and_mount", "-m \"mkfs.ext4 -F\"", "/dev/sdb", "/ssd"])
+root(["mkdir", "-p", "/ssd/docker"])
 root(["ln", "-s", "/ssd/docker", "/var/lib/docker"])
 
 subprocess.check_call("wget -q -O - https://jenkins-ci.org/debian/jenkins-ci.org.key | sudo -n apt-key add -", shell=True)
