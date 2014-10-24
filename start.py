@@ -10,9 +10,10 @@ print "job_name: %s" % job_name
 retval = subprocess.call(["sudo",
     "-n", "docker",
     "run",
-    "--name=%s" % job_name, "mojo-image",
+    "--name=%s" % job_name,
     "-v", "/var/lib/jenkins/jobs/mojo_continuous_builder/workspace:" +
           "/workspace:ro",
+   "mojo-image",
     "/mojo/build.py"])
 subprocess.check_call(["sudo", "-n", "docker", "rm", job_name])
 
