@@ -8,6 +8,7 @@ def system(command):
 
 os.chdir("/mojo")
 
+system(["cp", "-r", "/workspace", "src"])
 system(["gclient", "sync"])
 os.chdir("/mojo/src")
 system(["./mojo/tools/mojob.sh", "--debug", "gn"])
