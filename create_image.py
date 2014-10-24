@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import subprocess
+import tempfile
 import time
 
 instance_name = "mojo-builder-1"
@@ -52,11 +53,19 @@ try:
         print "waiting for instance to allow ssh..."
         time.sleep(5)
 
-
     gcompute(["copy-files",
               "prepare_image.py",
               instance_name + ":~/prepare_image.py",
+              "--quiet",
               "--zone", zone])
+
+    with tempfile.NamedTemporaryFile() as temp:
+        subprocess.check_call(["gsutil", "cp", "gs://mojo_infra/jenkins_config.xml", temp.name])
+        gcompute(["copy-files",
+                  temp.name,
+                  instance_name + ":/tmp/jenkins_config.xml",
+                  "--quiet",
+                  "--zone", zone])
 
     gcompute(["ssh",
               instance_name,
