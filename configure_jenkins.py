@@ -11,7 +11,8 @@ home = os.environ["HOME"]
 shutil.copy("/tmp/jenkins_config.xml", os.path.join(home, "config.xml"))
 dest = os.path.join(home, "jobs", "mojo_continuous_builder")
 system(["mkdir", "-p", dest])
-shutil.copy("/var/mojo/tools/jenkins/mojo_continuous_builder_config.xml", dest)
+shutil.copy("/var/mojo/tools/jenkins/mojo_continuous_builder_config.xml",
+            os.path.join(dest, "config.xml"))
 
 plugin_dir = os.path.join(home, "plugins")
 system(["mkdir", "-p", plugin_dir])

@@ -29,6 +29,7 @@ root(["chmod", "777", "/var/mojo"])
 system(["git", "clone", "https://github.com/domokit/tools.git", "/var/mojo/tools"])
 
 root(["docker", "build", "-t", "mojo-image", "/var/mojo/tools/docker"])
+root(["chown", "jenkins.jenkins", "/tmp/jenkins_config.xml"])
 root(["sudo", "-u", "jenkins", "/var/mojo/tools/configure_jenkins.py"])
 
 root(["/etc/init.d/jenkins", "restart"])
