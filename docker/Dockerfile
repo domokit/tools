@@ -3,7 +3,9 @@ FROM ubuntu:14.04
 MAINTAINER jamesr
 
 RUN apt-get update && apt-get install -y \
+	bison \
 	git \
+	gperf \
 	libcairo2-dev \
 	libdbus-1-dev \
 	libgconf2-dev \
